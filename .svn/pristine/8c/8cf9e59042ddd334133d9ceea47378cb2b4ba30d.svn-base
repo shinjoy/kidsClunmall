@@ -1,0 +1,241 @@
+package kr.nomad.mars;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class HomeController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	//@Autowired private UserDao userDao;
+
+	
+	// 페이지당 아이템 갯수
+	@Value("#{config['page.itemCountPerPage']}")
+	int ITEM_COUNT_PER_PAGE;
+
+	// 페이징당 페이지 갯수
+	@Value("#{config['page.pageCountPerPaging']}")
+	int PAGE_COUNT_PER_PAGING;
+
+	// 파일 루트
+	@Value("#{config['file.root']}")
+	String FILE_ROOT;
+
+	String FILE_PATH = "";
+	String FILE_LOCAL_PATH = "";
+
+	// 파일 최대크기(Mb)
+	@Value("#{config['file.maxSize']}")
+	int FILE_MAX_SIZE;
+		
+	/**
+	 * 메인 
+	 */
+	@RequestMapping("/home.go")
+	public String homeController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/home";
+	}
+	
+	/**
+	 * 로그인 
+	 */
+	@RequestMapping("/login.go")
+	public String loginController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/login";
+	}
+	
+	/**
+	 * 회원가입
+	 */
+	@RequestMapping("/join1.go")
+	public String join1Controller(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/join1";
+	}
+
+	/**
+	 * 회원가입
+	 */
+	@RequestMapping("/join2.go")
+	public String join2Controller(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/join2";
+	}
+
+	/**
+	 * 회사소개
+	 */
+	@RequestMapping("/intro.go")
+	public String introController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/intro";
+	}
+
+	/**
+	 * 상품 리스트
+	 */
+	@RequestMapping("/product_list.go")
+	public String productListController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/product_list";
+	}
+
+	/**
+	 * 상품 상세보기
+	 */
+	@RequestMapping("/product_detail.go")
+	public String productDetailController(
+	        @RequestParam(value="seq", required=false, defaultValue="0") int seq, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("seq", seq);
+	    return "/product_detail";
+	}
+
+	/**
+	 * 장바구니
+	 */
+	@RequestMapping("/basket.go")
+	public String basketController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/basket";
+	}
+
+	/**
+	 * 나의 상품
+	 */
+	@RequestMapping("/my_order.go")
+	public String myOrderController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/my_order";
+	}
+
+	/**
+	 * 커뮤니티 리스트
+	 */
+	@RequestMapping("/bbs_list.go")
+	public String bbsListController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/bbs_list";
+	}
+
+	/**
+	 * 커뮤니티 읽기
+	 */
+	@RequestMapping("/bbs_view.go")
+	public String bbsViewController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/bbs_view";
+	}
+
+	/**
+	 * 공지사항 리스트
+	 */
+	@RequestMapping("/notice_list.go")
+	public String noticeListController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/notice_list";
+	}
+
+	/**
+	 * 공지사항 읽기
+	 */
+	@RequestMapping("/notice_view.go")
+	public String noticeViewController(
+	        @RequestParam(value="seq", required=false, defaultValue="0") int seq, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("seq", seq);
+	    return "/notice_view";
+	}
+
+	/**
+	 * 개인정보 취급방침 
+	 */
+	@RequestMapping("/term_private.go")
+	public String termPrivateController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/term_private";
+	}
+
+	/**
+	 * 이메일 무단수집거부 
+	 */
+	@RequestMapping("/term_email.go")
+	public String termEmailController(
+	        @RequestParam(value="msg", required=false, defaultValue="") String msg, 
+	        HttpServletRequest req, HttpServletResponse res, HttpSession session, Model model
+	    ) {
+	 
+	    model.addAttribute("msg", msg);
+	    return "/term_email";
+	}
+
+	
+}

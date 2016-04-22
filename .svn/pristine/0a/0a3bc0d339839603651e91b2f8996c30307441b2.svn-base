@@ -1,0 +1,37 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/views/common/head.jsp" %>
+
+<style>
+</style>
+
+<script>
+	$(document).ready(function() {
+		$("#tm4").addClass("active");
+	});
+</script>
+
+</head>
+
+<body>
+
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<article>
+
+	<%@ include file="/WEB-INF/views/common/nav.jsp" %>
+		
+	<div class="main-images"><img src="/images/img_sub.png"></div>	
+
+	<div class="main-contents">
+
+
+	</div>
+	
+</article>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/views/common/head.jsp" %>
+
+<style>
+
+</style>
+
+<script>
+	$(document).ready(function() {
+		$("#nv2").addClass("active");
+	});
+	function calcPrice(frm) {
+		var price = parseInt(frm.unit.value) * parseInt(frm.cnt.value) + parseInt(frm.delivery.value);
+		frm.price.value = price;
+		$("#price").html($.number(price));
+	}
+	
+	function basket(frm){
+		if (frm.userId.value == "") {
+			alert("로그인 후 사용해주세요.");
+			return false;
+		} else {
+			var pname = frm.pname.value; //상품명
+			var unit = frm.unit.value; //판매가
+			var delivery = frm.delivery.value; //배송료
+			var price = frm.price.value; //주문금액
+			var cnt = frm.cnt.value; //주문수량
+			var op = frm.buyOption.value; //옵션
+			var seq = frm.seq.value;
+			
+			if(cnt==0){
+				alert("주문수량을 적어주세요");
+				return false;
+			}else{
+				
+				param = {
+						pname : pname,
+						unit : unit,
+						delivery : delivery,
+						price : price,
+						cnt : cnt,
+						op : op,
+						seq : seq	
+				}
+				
+				$.ajax({
+					dataType : "json",
+					data : param,
+					url : "/basket_do.go",
+					type:"POST",
+					success : function(json){
+						
+						document.location.href="/basket.go"
+					}
+				});
+				return false;
+				
+			}
+		}
+	}
+	
+	function order(frm){
+		if (frm.userId.value == "") {
+			alert("로그인 후 사용해주세요.");
+			return false;
+		} else {
+			var pname = frm.pname.value; //상품명
+			var unit = frm.unit.value; //판매가
+			var delivery = frm.delivery.value; //배송료
+			var price = frm.price.value; //주문금액
+			var cnt = frm.cnt.value; //주문수량
+			var op = frm.buyOption.value; //옵션
+			var seq = frm.seq.value;
+			
+			if(cnt==0){
+				alert("주문수량을 적어주세요");
+				return false;
+			}else{
+				
+				param = {
+					pname : pname,
+					unit : unit,
+					delivery : delivery,
+					price : price,
+					cnt : cnt,
+					op : op,
+					seq : seq	
+				}
+				
+				$.ajax({
+					dataType : "json",
+					data : param,
+					url : "/em_order.go",
+					type:"POST",
+					success : function(json){
+						
+						document.location.href="/order.go?seq="+json.seq;
+					}
+				});
+				return false;
+				
+			}
+		}
+	}
+</script>
+
+</head>
+
+<body>
+
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<article>
+
+	<%@ include file="/WEB-INF/views/common/nav.jsp" %>
+	
+	<div class="main-images"><img src="/images/img_sub.png"></div>	
+	
+	<div class="history">
+		홈 &gt; 제품소개
+	</div>
+
+	<div class="main-contents">
+
+		<table class="product">
+		<tr>
+			<td>
+				<img src="/data/product${seq}_thumb.png">
+			</td>
+			<td class="product-info">
+			
+				<form name="productForm">
+				<input type="hidden" name="seq" value="${seq}">
+				<input type="hidden" name="userId" value="${USER_ID}">
+				<c:choose>
+					<c:when test="${seq==1}">
+						<input type="hidden" name="unit" value="200000">
+						<input type="hidden" name="delivery" value="3000">
+						<input type="hidden" name="price" value="203000">
+						<input type="hidden" name="pname" value="KC안전인증 몽구 EZ 카시트 안전벨트">
+						<input type="hidden" name="buyOption" value="">
+						<h2>KC안전인증 몽구 EZ 카시트 안전벨트</h2>
+						<p class="company">공급사 : 쉐르파코리아 / 한국</p>
+						<dl>
+							<dt>옵션</dt>		<dd><select name="buyOption"><option value="노랑">노랑</option><option value="파랑">파랑</option></select>
+							<dt>판매가격</dt>	<dd>200,000원</dd> 
+							<dt>배송비</dt>		<dd>3,000원</dd>
+							<dt>주문수량</dt>	<dd><input type="text" class="itext" name="cnt" value="1" onchange="calcPrice(this.form);" style="width:50px;"></dd>
+							<dt>주문금액</dt>	<dd><span id="price">203,000</span>원</dd>
+						</dl>
+					</c:when>
+					<c:when test="${seq==2}">
+						<input type="hidden" name="unit" value="20000">
+						<input type="hidden" name="delivery" value="3000">
+						<input type="hidden" name="price" value="23000">
+						<input type="hidden" name="pname" value="문고정장치 맥도어">
+						<input type="hidden" name="buyOption" value="">
+						<h2>문고정장치 맥도어</h2>
+						<p class="company">공급사 : ㈜아이손 / 한국</p>
+						<dl>
+							<dt>옵션</dt>		<dd><select name="buyOption"><option value="흰색">흰색</option><option value="검정">검정</option></select>
+							<dt>판매가격</dt>	<dd>20,000원</dd> 
+							<dt>배송비</dt>		<dd>3,000원</dd>
+							<dt>주문수량</dt>	<dd><input type="text" class="itext" name="cnt" value="1" onchange="calcPrice(this.form);" style="width:50px;"></dd>
+							<dt>주문금액</dt>	<dd><span id="price">23,000</span>원</dd>
+						</dl>
+					</c:when>
+					<c:when test="${seq==3}">
+						<input type="hidden" name="unit" value="33000">
+						<input type="hidden" name="delivery" value="3000">
+						<input type="hidden" name="buyOption" value="">
+						<input type="hidden" name="price" value="36000">
+						<input type="hidden" name="pname" value="쿠루쿠루 어린이 안전벨트 커버">
+						<h2>쿠루쿠루 어린이 안전벨트 커버</h2>
+						<p class="company">공급사 : 쿠루쿠루 / 한국</p>
+						<dl>
+							<dt>판매가격</dt>	<dd>33,000원</dd> 
+							<dt>배송비</dt>		<dd>3,000원</dd>
+							<dt>주문수량</dt>	<dd><input type="text" class="itext" name="cnt" value="1" onchange="calcPrice(this.form);" style="width:50px;"></dd>
+							<dt>주문금액</dt>	<dd><span id="price">36,000</span>원</dd>
+						</dl>
+					</c:when>
+					<c:when test="${seq==4}">
+						<input type="hidden" name="unit" value="5000">
+						<input type="hidden" name="delivery" value="3000">
+						<input type="hidden" name="buyOption" value="">
+						<input type="hidden" name="price" value="8000">
+						<input type="hidden" name="pname" value="독도모형 꾸미기 (클레이 5색포함)">
+						<h2>독도모형 꾸미기 (클레이 5색포함)</h2>
+						<p class="company">공급사 : 키드키즈 / 한국</p>
+						<dl>
+							<dt>판매가격</dt>	<dd>5,000원</dd> 
+							<dt>배송비</dt>		<dd>3,000원</dd>
+							<dt>주문수량</dt>	<dd><input type="text" class="itext" name="cnt" value="1" onchange="calcPrice(this.form);" style="width:50px;"></dd>
+							<dt>주문금액</dt>	<dd><span id="price">8,000</span>원</dd>
+						</dl>
+					</c:when>
+					<c:when test="${seq==5}">
+						<input type="hidden" name="unit" value="225000">
+						<input type="hidden" name="delivery" value="0">
+						<input type="hidden" name="price" value="225000">
+						<input type="hidden" name="pname" value="휴대용 초음파 신장계 + 온습도계">
+						<h2>휴대용 초음파 신장계 + 온습도계</h2>
+						<p class="company">공급사 : ㈜인바디 / 한국</p>
+						<dl>
+							<dt>옵션</dt>		<dd><select name="buyOption"><option value="흰색">흰색</option><option value="노랑">노랑</option></select>
+							<dt>판매가격</dt>	<dd>225,000원</dd> 
+							<dt>배송비</dt>		<dd>무료</dd>
+							<dt>주문수량</dt>	<dd><input type="text" class="itext" name="cnt" value="1" onchange="calcPrice(this.form);" style="width:50px;"></dd>
+							<dt>주문금액</dt>	<dd><span id="price">225,000</span>원</dd>
+						</dl>
+					</c:when>
+				</c:choose>
+				
+					<div class="tools">
+						<button type="button" onclick="order(this.form);" class="btn-order order"><span>바로 구매</span></button>
+						<button type="button" onclick="basket(this.form);" class="btn-order basket"><span>장바구니에 담기</span></button>
+						<a href="/product_list.go" class="btn" style="padding: 4px 15px;">목록으로</a>
+					</div>
+				</form>
+				
+			</td>
+		</tr>
+		</table>
+
+		<div class="product-detail">
+		<c:choose>
+			<c:when test="${seq==1}">
+				<img src="/data/product5_01.png"><br>
+			</c:when>
+			<c:when test="${seq==2}">
+				<img src="/data/product4_01.png"><br>
+				<img src="/data/product4_02.png"><br>
+			</c:when>
+			<c:when test="${seq==3}">
+				<img src="/data/product1_01.png"><br>
+				<img src="/data/product1_02.png"><br>
+				<img src="/data/product1_03.png"><br>
+				<img src="/data/product1_04.png"><br>
+				<img src="/data/product1_05.png"><br>
+			</c:when>
+			<c:when test="${seq==4}">
+				<img src="/data/product2_01.png"><br>
+			</c:when>
+			<c:when test="${seq==5}">
+				<img src="/data/product3_01.png"><br>
+				<img src="/data/product3_02.png"><br>
+				<img src="/data/product3_03.png"><br>
+				<img src="/data/product3_04.png"><br>
+				<img src="/data/product3_05.png"><br>
+				<img src="/data/product3_06.png"><br>
+			</c:when>
+		</c:choose>
+		</div>
+
+		<div class="btn-tools">
+			<a href="/product_list.go" class="btn" style="padding: 4px 15px;">목록으로</a>
+		</div>
+
+	</div>
+	
+</article>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
+</body>
+</html>

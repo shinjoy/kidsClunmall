@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<header class="top-header">
+	<article>
+		<div class="left"> 
+			<ul>
+				<li><a href="/"><span class="line" id="tm1">홈</span></a></li>
+			</ul>
+		</div>
+		<div class="right">
+			<ul >
+				<li><a href="/login.go"><span id="tm2">로그인</span></a></li>
+				<li><a href="/join1.go"><span id="tm3">회원가입</span></a></li>
+				<li><a href="/basket.go"><span id="tm4" class="line">장바구니</span></a></li>
+			</ul>
+		</div>
+	</article>
+</header>

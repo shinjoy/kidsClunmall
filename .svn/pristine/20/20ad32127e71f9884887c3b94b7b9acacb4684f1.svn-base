@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+article { width:800px; margin:0 auto; }
+header.top-header { background-image:url('/images/bg_top.png'); height:26px; width:100%; }
+header article {  display:table; }
+header article .left { display:table-cell; text-align:left; width:300px; }
+header article .right { display:table-cell; text-align:right; }
+header article ul { display:table; }
+header article .left ul { float:left; }
+header article .right ul { float:right; }
+header article ul li { display:table-cell; }
+header article ul li a span { display:inline-block; border-left:1px solid #ddd; height:23px; padding:3px 15px 0; color:#333; width:80px; text-align:center; }
+header article ul li a span.line { border-right:1px solid #ddd; }
+header article ul li a span.active, header article ul li a span:hover { background-color:#fff; }
+
+.logo { width:100%; padding:15px 0; text-align:center; }
+
+nav { background-image:url('/images/bg_navi.png'); height:40px; }
+nav ul { display:table; width:100%; }
+nav ul li { display:table-cell; }
+nav ul li span { display:inline-block; text-align:center; font-weight:bold; color:#fff; font-size:14px; width:100%; height:31px; padding:9px 0 0; }
+nav ul li span.active, nav ul li span:hover { background-color:#fedd30; }
+
+.main-images { margin-top:1px; }
+
+.main-contents { display:table; margin-top:20px; width:100%; }
+.main-contents .main-notice { display:table-cell; vertical-align:top; border:1px solid #a3b983; width:240px; }
+.main-contents .main-notice table.notice { width:100%; }
+.main-contents .main-notice table.notice thead { background-color:#a3b983; color:#fff; }
+.main-contents .main-notice table.notice thead th { text-align:left; padding-left:5px; }
+.main-contents .main-notice table.notice thead td { text-align:right; padding-right:5px; }
+.main-contents .main-notice table.notice thead td a { color:#fff; }
+.main-contents .main-notice table.notice tbody td { padding:2px 5px; color:#333; }
+.main-contents .main-notice table.notice tbody td a { color:#333; }
+.main-contents .main-notice table.notice tbody td.date { color:#aaa; }
+
+.main-contents .main-product { display:table-cell; vertical-align:top; }
+
+.main-contents .main-product ul { display:table; }
+.main-contents .main-product ul li { display:table-cell; vertical-align:top; }
+.main-contents .main-product ul li span { display:inline-block; width:120px; margin-left:20px; color:#333; }
+
+footer { border-top:1px solid #aaa; margin-top:20px; width:100%; height:50px; padding:10px 0 30px; }
+footer ul.foot-link { float:right; display:table; }
+footer ul.foot-link li { display:table-cell; text-align:center; border-right:1px solid #aaa; padding:0 10px; }
+footer ul.foot-link li a span { display:inline-block; width:100%; text-align:center; }
+
+footer .copyright { clear:both; padding-top:10px; display:table; }
+footer .copyright .copy-logo { display:table-cell; width:250px; }
+footer .copyright .copy { display:table-cell; }
+footer .copyright .copy dt { display:inline-block; color:#aaa; }
+footer .copyright .copy dd { display:inline-block; color:#ccc; }
+
+.history { border-top:1px solid #ddd; border-bottom:1px solid #ddd; padding:5px 10px; margin-top:10px; }
+.box { border:1px solid #ddd; width:100%; padding-bottom:50px; }
+.box .terms { padding:30px; font-size:14px; }
+.box .terms p { margin:10px 0; }
+.box .terms .img-email { margin:50px; }
+.box .contents { padding:30px; font-size:14px; }
+.box .contents header { border-bottom:1px solid #ddd; margin-bottom:20px; }
+
+
+
+.ribon { margin-left:35px; }
+ul.product-list { display:table; margin-top:20px;}
+ul.product-list li { display:table-cell;}
+ul.product-list li span.thumb { display:block; margin-left:35px; }
+ul.product-list li span.thumb .product-name { display:block; width:100%; color:#37d; font-size:14px; }
+ul.product-list li span.thumb .price { color:#333; font-size:14px; font-weight:bold; }
+
+.intro_contents { text-align:center; }
+
+.search { padding-bottom:10px; }
+
+table.product { width:720px; margin:0 auto 30px; }
+table.product td { vertical-align:top; }
+table.product td.product-info { padding:0 50px; }
+table.product td.product-info dt { clear:left; float:left; width:100px; margin-top:5px; height:26px; }
+table.product td.product-info dd { float:left; margin-top:5px; height:26px; }
+table.product td.product-info .detail { clear:both; border-top:1px solid #ddd; border-bottom:1px solid #ddd; margin:20px 0; }
+table.product td.product-info .tools { clear:both; }
+table.product td.product-info .tools .btn-order { border-radius:3px; }
+table.product td.product-info .tools .btn-order span { display:inline-block; padding:7px 20px; font-weight:bold; font-size:14px; color:#fff; }
+table.product td.product-info .tools .btn-order.order { background-color:#f57900; }
+table.product td.product-info .tools .btn-order.basket { background-color:#65bb00; }
+table.product td.product-info .company { margin-bottom:20px;  }
+.product-detail { width:720px; margin:0 auto 30px; }
+
+.join1-box { width:720px; margin:0 auto 30px; }
+.join1-box h3 { margin:20px 0 10px; }
+.join1-box textarea { padding:10px; width:700px; }
+.join2-box { border:1px solid #ddd; width:680px; margin:0 auto 30px; padding:20px; }
+.tools { text-align:center; margin:20px 0;}
+
+.box-basket { display:table; margin-top:20px; border:4px solid #ccc; width:100%; }
+.box-basket .left { display:table-cell; padding:20px; font-weight:bold; font-size:16px; vertical-align:top; width:465px; }
+.box-basket .right { display:table-cell; padding:20px; vertical-align:top; }
+.box-basket dl dt { clear:left; float:left; width:120px; }
+.box-basket dl dd { float:left; width:120px; text-align:right; font-size:14px; }
+.box-basket #total-fee { color:#f40; font-weight:bold; }
+
+.btn-count-edit { background-color:#5af; color:#fff; }
+.btn-basket-delete { padding:10px 20px; background-color:#eee; }
+.btn-basket-clear { padding:10px 20px; background-color:#eee; margin-right:50px; }
+.btn-order-all { padding:10px 20px; background-color:#f40; color:#fff; }
+.btn-order-continue { padding:10px 20px; background-color:#4c0; color:#fff; }
+
+.box-720 { width:720px; margin:0 auto 5px; }
+.bank-book { display:none; margin-top:5px; }
+.bank-book dt { float:left; clear:left; width:60px; padding-top:3px; }
+.bank-book dd { float:left; }

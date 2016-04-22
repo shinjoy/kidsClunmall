@@ -1,0 +1,89 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/views/common/head.jsp" %>
+
+<style>
+.terms h2 { font-size:18px; }
+</style>
+
+<script>
+	$(document).ready(function() {
+	});
+</script>
+
+</head>
+
+<body>
+
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<article>
+
+	<%@ include file="/WEB-INF/views/common/nav.jsp" %>
+	
+	<div class="main-images"><img src="/images/img_sub.png"></div>	
+	
+	<div class="history">
+		홈 &gt; 공지사항
+	</div>
+	
+	<div class="main-contents">
+
+		<div class="box">
+			<div class="contents">
+			
+				<c:choose>
+					<c:when test="${seq == 1}">
+						<header>
+							<h2>안녕하세요. KIDS Club mall 입니다.</h2>
+							<div>관리자 | 2015-10-10 12:03</div>
+						</header>
+		
+						<p>
+						안녕하세요.<br>
+						KIDS Club mall 입니다.<br><br>
+						5만원 이상 결제시 현대카드 2~3개월 무이자 행사<br>
+						많은 관심 바랍니다.
+						</p>
+					</c:when>
+					<c:when test="${seq == 2}">
+						<header>
+							<h2>몽구 EZ 카시트 입점</h2>
+							<div>관리자 | 2015-10-10 12:24</div>
+						</header>
+		
+						<p>
+						안녕하세요.<br>
+						몽구 EZ 카시트가 입점되었습니다.<br>
+						많은 관심 바랍니다.
+						</p>
+					</c:when>
+					<c:when test="${seq == 3}">
+						<header>
+							<h2>쿠루쿠루 어린이 안전벨트 입점</h2>
+							<div>관리자 | 2015-10-10 12:27</div>
+						</header>
+		
+						<p>
+						안녕하세요.<br>
+						쿠루쿠루 어린이 안전벨트가 입점되었습니다.<br>
+						많은 관심 바랍니다.
+						</p>
+					</c:when>
+				</c:choose>
+			</div>
+			
+		</div>
+
+		<div class="btn-tools">
+			<a href="/notice_list.go" class="btn" style="padding: 4px 15px;">목록으로</a>
+		</div>
+
+	</div>
+	
+</article>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
+</body>
+</html>

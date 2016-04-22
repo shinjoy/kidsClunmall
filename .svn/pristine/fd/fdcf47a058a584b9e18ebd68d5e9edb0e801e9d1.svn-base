@@ -1,0 +1,73 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/WEB-INF/views/common/head.jsp" %>
+
+<style>
+</style>
+
+<script>
+	$(document).ready(function() {
+		$("#nv3").addClass("active");
+	});
+</script>
+
+</head>
+
+<body>
+
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<article>
+
+	<%@ include file="/WEB-INF/views/common/nav.jsp" %>
+	
+	<div class="main-images"><img src="/images/img_sub.png"></div>	
+	
+	<div class="history">
+		홈 &gt; 나의 상품
+	</div>
+	
+	<div class="main-contents">
+
+		<div class="search">
+			<input type="text" name="keyword" class="itext" style="width:200px;" placeholder="상품 검색">
+			<button type="button" class="btn"><span>검색</span></button>
+		</div>
+
+		<table class="list">
+		<colgroup>
+			<col width="10%">
+			<col width="20%">
+			<col width="*">
+			<col width="15%">
+			<col width="15%">
+		</colgroup>
+		<thead>
+			<tr>
+				<th>주문일자</th>
+				<th>주문코드</th>
+				<th>주문상품</th>
+				<th>주문금액</th>
+				<th>주문처리상태</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="5">
+					<span class="empty-data">주문내역이 없습니다.</span>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+
+		<%@ include file="/WEB-INF/views/common/paging.jsp" %>
+
+	</div>
+	
+</article>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
+</body>
+</html>

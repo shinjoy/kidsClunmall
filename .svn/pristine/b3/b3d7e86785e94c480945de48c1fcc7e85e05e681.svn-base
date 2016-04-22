@@ -1,0 +1,119 @@
+package kr.nomad.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import kr.nomad.dto.OrderProduct;
+
+public class OrderProductDao {
+	
+	private JdbcTemplate jdbcTemplate;
+	public void setDataSource(DataSource dataSource) {
+	    this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	private RowMapper orderproductMapper = new RowMapper() {
+		public OrderProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
+			OrderProduct orderproduct = new OrderProduct();
+			orderproduct.setOpSeq(rs.getInt("op_seq"));
+			orderproduct.setUserId(rs.getString("user_id"));
+			orderproduct.setOrderSeq(rs.getInt("order_seq"));
+			orderproduct.setProductSeq(rs.getInt("product_seq"));
+			orderproduct.setProductName(rs.getString("product_name"));
+			orderproduct.setUnitPrice(rs.getInt("unit_price"));
+			orderproduct.setBuyCount(rs.getInt("buy_count"));
+			orderproduct.setProductOption(rs.getString("product_option"));
+			orderproduct.setDiscount(rs.getInt("discount"));
+			orderproduct.setPayMoney(rs.getInt("pay_money"));
+			orderproduct.setRegDate(rs.getString("reg_date"));
+			orderproduct.setStatus(rs.getInt("status"));
+			return orderproduct;
+		}
+	};
+
+	public void addOrderProduct(final OrderProduct orderproduct) {
+		String query = "" +
+				"INSERT INTO T_NF_ORDER_PRODUCT " +
+				"	(op_seq, order_seq, product_seq, product_name, unit_price, buy_count, product_option, discount, pay_money, reg_date, status) " +
+				"VALUES " +
+				"	(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+		this.jdbcTemplate.update(query, new Object[] {
+			orderproduct.getOpSeq(),
+			orderproduct.getOrderSeq(),
+			orderproduct.getProductSeq(),
+			orderproduct.getProductName(),
+			orderproduct.getUnitPrice(),
+			orderproduct.getBuyCount(),
+			orderproduct.getProductOption(),
+			orderproduct.getDiscount(),
+			orderproduct.getPayMoney(),
+			orderproduct.getRegDate(),
+			orderproduct.getStatus()
+		});
+	}
+
+	public void deleteOrderProduct(String op_seq) {
+		String query = "DELETE FROM T_NF_ORDER_PRODUCT WHERE op_seq = ? ";
+		this.jdbcTemplate.update(query, new Object[] { op_seq });
+	}
+
+	public void updateOrderProduct(OrderProduct orderproduct) { 
+		String query = "" + 
+				"UPDATE T_NF_ORDER_PRODUCT SET " +
+				"	op_seq = ?, " +
+				"	order_seq = ?, " +
+				"	product_seq = ?, " +
+				"	product_name = ?, " +
+				"	unit_price = ?, " +
+				"	buy_count = ?, " +
+				"	product_option = ?, " +
+				"	discount = ?, " +
+				"	pay_money = ?, " +
+				"	reg_date = ?, " +
+				"	status = ? " +
+				"WHERE op_seq = ? ";
+		this.jdbcTemplate.update(query, new Object[] {
+			orderproduct.getOpSeq(),
+			orderproduct.getOrderSeq(),
+			orderproduct.getProductSeq(),
+			orderproduct.getProductName(),
+			orderproduct.getUnitPrice(),
+			orderproduct.getBuyCount(),
+			orderproduct.getProductOption(),
+			orderproduct.getDiscount(),
+			orderproduct.getPayMoney(),
+			orderproduct.getRegDate(),
+			orderproduct.getStatus()
+		});
+	}
+
+	public OrderProduct getOrderProduct(String op_seq) {
+		String query = "" + 
+				"SELECT op_seq, order_seq, product_seq, product_name, unit_price, buy_count, product_option, discount, pay_money, reg_date, status " +
+				"FROM T_NF_ORDER_PRODUCT " +
+				"WHERE op_seq = ? ";
+		return (OrderProduct)this.jdbcTemplate.queryForObject(query, new Object[] { op_seq }, this.orderproductMapper);
+	}
+
+	public List<OrderProduct> getOrderProductList(int page, int itemCountPerPage) {
+		String query = "" +
+				"SELECT TOP "+ itemCountPerPage +" op_seq, order_seq, product_seq, product_name, unit_price, buy_count, product_option, discount, pay_money, reg_date, status " +
+				"FROM T_NF_ORDER_PRODUCT " +
+				"WHERE op_seq <= ( " +
+				"	SELECT MIN(op_seq) " +
+				"	FROM ( " +
+				"		SELECT TOP "+ ((page-1) * itemCountPerPage + 1) +" op_seq " +
+				"		FROM T_NF_ORDER_PRODUCT " +
+				"		ORDER BY op_seq DESC " +
+				"	) AS A) " +
+				"ORDER BY op_seq DESC";
+		return (List<OrderProduct>)this.jdbcTemplate.query(query, this.orderproductMapper);
+	}
+
+}

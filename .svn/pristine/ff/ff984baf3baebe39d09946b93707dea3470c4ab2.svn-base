@@ -1,0 +1,161 @@
+package kr.nomad.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import kr.nomad.dto.OrderProduct;
+
+public class OrderProductDao {
+	
+	private JdbcTemplate jdbcTemplate;
+	public void setDataSource(DataSource dataSource) {
+	    this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	private RowMapper orderproductMapper = new RowMapper() {
+		public OrderProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
+			OrderProduct orderproduct = new OrderProduct();
+			orderproduct.setOpSeq(rs.getInt("op_seq"));
+			orderproduct.setUserId(rs.getString("user_id"));
+			orderproduct.setOrderSeq(rs.getInt("order_seq"));
+			orderproduct.setProductSeq(rs.getInt("product_seq"));
+			orderproduct.setProductName(rs.getString("product_name"));
+			orderproduct.setUnitPrice(rs.getInt("unit_price"));
+			orderproduct.setBuyCount(rs.getInt("buy_count"));
+			orderproduct.setProductOption(rs.getString("product_option"));
+			orderproduct.setDiscount(rs.getInt("discount"));
+			orderproduct.setPayMoney(rs.getInt("pay_money"));
+			orderproduct.setRegDate(rs.getString("reg_date"));
+			orderproduct.setStatus(rs.getInt("status"));
+			return orderproduct;
+		}
+	};
+	//장바구니담기
+	public void addOrderProduct(final OrderProduct orderproduct) {
+		String query = "" +
+				"INSERT INTO T_NF_ORDER_PRODUCT " +
+				"	(product_seq, product_name, unit_price, buy_count, product_option, discount, pay_money, reg_date, status, user_id) " +
+				"VALUES " +
+				"	( ?, ?, ?, ?, ?, ?, ?, getDate(), ? , ?) ";
+		this.jdbcTemplate.update(query, new Object[] {
+			
+			
+			orderproduct.getProductSeq(),
+			orderproduct.getProductName(),
+			orderproduct.getUnitPrice(),
+			orderproduct.getBuyCount(),
+			orderproduct.getProductOption(),
+			orderproduct.getDiscount(),
+			orderproduct.getPayMoney(),
+			orderproduct.getStatus(),
+			orderproduct.getUserId(),
+		});
+	}
+	
+	public List<OrderProduct> getOrderProductList(String userId) {
+		String query = "" +
+				"select * from t_nf_order_product where user_id = ? and status = 1 ";
+		
+		return (List<OrderProduct>)this.jdbcTemplate.query(query,new Object[] { userId }, this.orderproductMapper);
+	}
+	//체크박스
+	public OrderProduct chProduct(int seq,String userId) {
+		String query = "" + 
+				"SELECT *" +
+				"FROM T_NF_ORDER_PRODUCT " +
+				"WHERE product_seq = ? and user_id = ? and status = 1";
+		return (OrderProduct)this.jdbcTemplate.queryForObject(query, new Object[] { seq ,userId}, this.orderproductMapper);
+	}
+
+	public void deleteOrderProduct(String op_seq) {
+		String query = "DELETE FROM T_NF_ORDER_PRODUCT WHERE op_seq = ? ";
+		this.jdbcTemplate.update(query, new Object[] { op_seq });
+	}
+
+	public void updateOrderProduct(OrderProduct orderproduct) { 
+		String query = "" + 
+				"UPDATE T_NF_ORDER_PRODUCT SET " +
+				"	op_seq = ?, " +
+				"	order_seq = ?, " +
+				"	product_seq = ?, " +
+				"	product_name = ?, " +
+				"	unit_price = ?, " +
+				"	buy_count = ?, " +
+				"	product_option = ?, " +
+				"	discount = ?, " +
+				"	pay_money = ?, " +
+				"	reg_date = ?, " +
+				"	status = ? " +
+				"WHERE op_seq = ? ";
+		this.jdbcTemplate.update(query, new Object[] {
+			orderproduct.getOpSeq(),
+			orderproduct.getOrderSeq(),
+			orderproduct.getProductSeq(),
+			orderproduct.getProductName(),
+			orderproduct.getUnitPrice(),
+			orderproduct.getBuyCount(),
+			orderproduct.getProductOption(),
+			orderproduct.getDiscount(),
+			orderproduct.getPayMoney(),
+			orderproduct.getRegDate(),
+			orderproduct.getStatus()
+		});
+	}
+
+	public void updateOrderProductCount(int opSeq, int buyCount, int payMoney) { 
+		String query = "" + 
+				"UPDATE T_NF_ORDER_PRODUCT SET " +
+				"	buy_count = ?, " +
+				"	pay_money = ? " +
+				"WHERE op_seq = ? ";
+		this.jdbcTemplate.update(query, new Object[] { buyCount, payMoney, opSeq });
+	}
+
+	public OrderProduct getOrderProduct(int op_seq) {
+		String query = "" + 
+				"SELECT * " +
+				"FROM T_NF_ORDER_PRODUCT " +
+				"WHERE op_seq = ? ";
+		try {
+			return (OrderProduct)this.jdbcTemplate.queryForObject(query, new Object[] { op_seq }, this.orderproductMapper);
+		} catch (Exception e) {
+			return new OrderProduct();
+		}
+	}
+
+	public List<OrderProduct> getOrderProductList(int page, int itemCountPerPage) {
+		String query = "" +
+				"SELECT TOP "+ itemCountPerPage +" * " +
+				"FROM T_NF_ORDER_PRODUCT " +
+				"WHERE op_seq <= ( " +
+				"	SELECT MIN(op_seq) " +
+				"	FROM ( " +
+				"		SELECT TOP "+ ((page-1) * itemCountPerPage + 1) +" op_seq " +
+				"		FROM T_NF_ORDER_PRODUCT " +
+				"		ORDER BY op_seq DESC " +
+				"	) AS A) " +
+				"ORDER BY op_seq DESC";
+		return (List<OrderProduct>)this.jdbcTemplate.query(query, this.orderproductMapper);
+	}
+	public List<OrderProduct> getOrderProductSelectedList(String seq) {
+		String query = ""
+	            + " SELECT * "
+	            + " FROM T_NF_ORDER_PRODUCT "
+	            + "	WHERE op_seq in ("+ seq +") ";
+		return (List<OrderProduct>)this.jdbcTemplate.query(query, this.orderproductMapper);
+	}
+	public List<OrderProduct> getOrderProductMyList(String userId) {
+		String query = ""
+	            + " SELECT * "
+	            + " FROM T_NF_ORDER_PRODUCT "
+	            + "	WHERE user_id = ? AND status = 2 ";
+		return (List<OrderProduct>)this.jdbcTemplate.query(query, new Object[] {userId}, this.orderproductMapper);
+	}
+
+}

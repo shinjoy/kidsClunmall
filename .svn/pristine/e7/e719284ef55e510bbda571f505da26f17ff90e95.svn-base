@@ -1,0 +1,93 @@
+package kr.nomad.dto;
+
+public class OrderProduct {
+	
+	int opSeq = 0;
+	int orderSeq = 0;
+	int productSeq = 0;
+	String productName = "";
+	int unitPrice = 0;
+	int buyCount = 0;
+	String productOption = "";
+	int discount = 0;
+	int payMoney = 0;
+	String regDate = "";
+	int status = 0;
+	String userId ="";
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getOpSeq() {
+		return opSeq;
+	}
+	public void setOpSeq(int opSeq) {
+		this.opSeq = opSeq;
+	}
+	public int getOrderSeq() {
+		return orderSeq;
+	}
+	public void setOrderSeq(int orderSeq) {
+		this.orderSeq = orderSeq;
+	}
+	public int getProductSeq() {
+		return productSeq;
+	}
+	public void setProductSeq(int productSeq) {
+		this.productSeq = productSeq;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getUnitPrice() {
+		return unitPrice;
+	}
+	public void setUnitPrice(int unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+	public int getBuyCount() {
+		return buyCount;
+	}
+	public void setBuyCount(int buyCount) {
+		this.buyCount = buyCount;
+	}
+	public String getProductOption() {
+		return productOption;
+	}
+	public void setProductOption(String productOption) {
+		this.productOption = productOption;
+	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+	public int getPayMoney() {
+		return payMoney;
+	}
+	public void setPayMoney(int payMoney) {
+		this.payMoney = payMoney;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+}
